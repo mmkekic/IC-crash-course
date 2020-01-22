@@ -39,7 +39,7 @@ def counter(future):
         future.set_result(count)
 
 
-count = counter()
+count = fl.spy_count()
 # and count.sink would be used as a pipe component
 
 
@@ -55,7 +55,7 @@ with open("demonstration_0.txt", "w") as file:
 
     result = fl.push(source = lost_numbers(),
                      pipe   = fl.pipe(keep_even,
-                                      fl.branch(count.sink),
+                                      count.spy,
                                       add_42,
                                       take_sqrt,
                                       fl.fork(print_,
